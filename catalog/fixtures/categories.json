@@ -1,0 +1,42 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 5,
+    "fields": {
+      "name_category": "Спортивные добавки",
+      "description": "Пищевые добавки для набора мышечной массы и сжигания жира"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 6,
+    "fields": {
+      "name_category": "Напитки",
+      "description": "Спортивные напитки для тренировок"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 7,
+    "fields": {
+      "name_category": "Спортивная еда",
+      "description": ""
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 8,
+    "fields": {
+      "name_category": "Биологические добавки",
+      "description": ""
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 9,
+    "fields": {
+      "name_category": "Витамины",
+      "description": ""
+    }
+  }
+]
