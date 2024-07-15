@@ -34,9 +34,6 @@ class Product(models.Model):
     updated_at = models.DateField(
         auto_now=True, verbose_name="дата последнего изменения"
     )
-    manufactured_at = models.DateField(
-        verbose_name='Дата производства', **NULLABLE,
-    )
 
     def __str__(self):
         return f"{self.product_name} {self.price_product}"
