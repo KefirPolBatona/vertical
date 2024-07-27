@@ -1,168 +1,125 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+{% extends 'catalog/base.html' %}
 
-    <title>Jumbotron Template for Bootstrap</title>
+{% load static %}
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
+{% block content %}
+<div class="container">
+    <div class="row text-start">
+        <div class="col-lg-9 col-md-6 col-sm-12">
+            <div class="card mb-4 box-shadow">
+                <div class="card-body">
+                    <br>
+                    <table class="table table-striped">
+                        <tr>
+                            <td class="w-25">Страна</td>
+                            <td>Россия</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">ИНН</td>
+                            <td>94334456788</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Адрес</td>
+                            <td>Да тут рукой подать</td>
+                        </tr>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">VERTICAL</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Главная </a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/instructor/">Тренерский состав </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/contact/">Контакты </a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<main role="main">
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <div class="container">
-        <div class="row text-start">
-            <div class="col-lg-9 col-md-6 col-sm-12">
-                <div class="card mb-4 box-shadow">
-                    <div class="card-body">
+                        <tr>
+                            <td class="w-25">e-mail</td>
+                            <td>fasgg@fdgdgdshg.ru</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Телефоны</td>
+                            <td>+7-911-111-11-11</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Сообщество в Вк</td>
+                            <td>https://vk.com/vertical_bor</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Карта</td>
+                            <td>Яндекс Карты</td>
+                        </tr>
                         <br>
-                        <table class="table table-striped">
-                            <tr>
-                                <td class="w-25">Страна</td>
-                                <td>Россия</td>
-                            </tr>
-                            <tr>
-                                <td class="w-25">ИНН</td>
-                                <td>94334456788</td>
-                            </tr>
-                            <tr>
-                                <td class="w-25">Адрес</td>
-                                <td>Да тут рукой подать</td>
-                            </tr>
 
-                            <tr>
-                                <td class="w-25">e-mail</td>
-                                <td>fasgg@fdgdgdshg.ru</td>
-                            </tr>
-                            <tr>
-                                <td class="w-25">Телефоны</td>
-                                <td>+7-911-111-11-11</td>
-                            </tr>
-                            <tr>
-                                <td class="w-25">Сообщество в Вк</td>
-                                <td>https://vk.com/vertical_bor</td>
-                            </tr>
-                            <tr>
-                                <td class="w-25">Карта</td>
-                                <td>Яндекс
-                                    Карты
-                                </td>
-                            </tr>
-
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                <div class="card mb-4 box-shadow">
-                    <div class="card-header">
-                        <h4 class="my-0 font-weight-normal">Обратная связь</h4>
-                    </div>
-                    <div class="card-body">
-                        <form method="post" action="" class="form-floating">
-                            {% csrf_token %}
-                            <div class="mb-3">
-                                <label for="name">Имя</label>
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Ваше имя"
-                                       required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="phone">Телефон</label>
-                                <input type="text" name="phone" class="form-control" id="phone"
-                                       placeholder="Контактный телефон" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="message">Сообщение</label>
-                                <textarea type="text" name="message" class="form-control" id="message"
-                                          placeholder="Текст сообщения" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Отправить</button>
-                        </form>
-                    </div>
+                    </table>
                 </div>
             </div>
         </div>
-
-        <footer class="pt-4 my-md-5 pt-md-5 border-top">
-            <div class="row">
-
-                <div class="col-6 col-md">
-                    <h5>О нас</h5>
-                    <ul class="list-unstyled text-small">
-                        <li><a class="text-muted" href="#">Наши успехи и достижения</a></li>
-                        <li><a class="text-muted" href="#">Наши чемпионы</a></li>
-                        <li><a class="text-muted" href="#">Почетные спортсмены студии</a></li>
-                        <li><a class="text-muted" href="#">Почетные тренеры студии</a></li>
-                        <li><a class="text-muted" href="#">Общественная деятельность</a></li>
-                    </ul>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal" style="color: #c9a673">Обратная связь</h4>
                 </div>
-                <div class="col-6 col-md">
-                    <h5>Полезная информация</h5>
-                    <ul class="list-unstyled text-small">
-                        <li><a class="text-muted" href="#">Рассылки</a></li>
-                        <li><a class="text-muted" href="#">Телеграм бот</a></li>
-                        <li><a class="text-muted" href="#">Информация для спортсменов</a></li>
-                        <li><a class="text-muted" href="#">Информация для родителей</a></li>
-                    </ul>
-                </div>
-                <div class="col-6 col-md">
-                    <h5>Наши партнеры</h5>
-                    <ul class="list-unstyled text-small">
-                        <li><a class="text-muted" href="/contact/">Спонсоры и волонтеры студии</a></li>
-                        <li><a class="text-muted" href="/contact/">Техническое обслуживание оборудования</a></li>
-                        <li><a class="text-muted" href="/contact/">Наши друзья и просто хорошие человеки</a></li>
-                    </ul>
+                <div class="card-body">
+                    <form method="post" action="" class="form-floating">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name">Имя</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Ваше имя"
+                                   required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone">Телефон</label>
+                            <input type="text" name="phone" class="form-control" id="phone"
+                                   placeholder="Контактный телефон" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message">Сообщение</label>
+                            <textarea type="text" name="message" class="form-control" id="message"
+                                      placeholder="Текст сообщения" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-block btn-outline-secondary">Отправить</button>
+                    </form>
                 </div>
             </div>
-        </footer>
+        </div>
     </div>
+</div>
 
+<br>
+<br>
 
 </main>
 
+<div class="container">
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row" style="color: #c9a673">
+            <div class="col-4 col-md">
+                <h5>О нас</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted"  href="#">Наши успехи и достижения</a></li>
+                    <li><a class="text-muted" href="#">Наши чемпионы</a></li>
+                    <li><a class="text-muted" href="#">Почетные спортсмены студии</a></li>
+                    <li><a class="text-muted" href="#">Почетные тренеры студии</a></li>
+                    <li><a class="text-muted" href="#">Общественная деятельность</a></li>
+                </ul>
+            </div>
+            <div class="col-4 col-md">
+                <h5>Полезная информация</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="#">Рассылки</a></li>
+                    <li><a class="text-muted" href="#">Телеграм бот</a></li>
+                    <li><a class="text-muted" href="#">Информация для спортсменов</a></li>
+                    <li><a class="text-muted" href="#">Информация для родителей</a></li>
+                </ul>
+            </div>
+            <div class="col-4 col-md">
+                <h5>Наши партнеры</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="#">Спонсоры и волонтеры студии</a></li>
+                    <li><a class="text-muted" href="#">Техническое обслуживание оборудования</a></li>
+                    <li><a class="text-muted" href="#">Наши друзья и просто хорошие человеки</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-            crossorigin="anonymous"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
 
 
 </body>
+
 </html>
+{% endblock %}
