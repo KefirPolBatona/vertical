@@ -1,18 +1,28 @@
 from django.shortcuts import render
+from django.views.generic import ListView, TemplateView, DetailView
+
+from catalog.models import Product
 
 
-def home(request):
-    return render(request, 'catalog/home.html')
+class ProductListView(ListView):
+    model = Product
 
 
-def contact(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        phone = request.POST.get('phone')
-        message = request.POST.get('message')
-        print(f'You have new message from {name} ({phone}): {message}')
-    return render(request, 'catalog/contact.html')
+class InstructorView(TemplateView):
+    template_name = 'catalog/instructor.html'
 
 
-def instructor(request):
-    return render(request, 'catalog/instructor.html')
+class ProductDetailView(DetailView):
+    model = Product
+
+
+class ContactView(TemplateView):
+    template_name = 'catalog/contact.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.method == "POST":
+            name = request.POST.get("name")
+            phone = request.POST.get("phone")
+            message = request.POST.get("message")
+            print(f"You have new message from {name} ({phone}): {message}")
+        return render(request, "catalog/contact.html")

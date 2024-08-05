@@ -1,0 +1,58 @@
+{% extends 'catalog/base.html' %}
+
+{% load static %}
+
+{% load my_tags %}
+
+{% block content %}
+<div class="card-body" style="background-color: #f2ddda">
+
+    <div class="container-fluid">
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" style="color: #ad916c" href="{% url 'catalog:home' %}"> <<< Назад </a>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="{{ object.avatar | media_filter}}" class="img-thumbnail"
+                     alt="{{ object.avatar }}">
+            </div>
+            <div class="col-md-6">
+                <h5 class="card-title text-secondary">{{ object.product_name }}</h5>
+                <h6 class="card-title text-secondary">Категория: {{ object.category }}</h6>
+                <h6 class="card-title text-secondary">Стоимость: {{ object.price_product }}</h6>
+                <p class="card-text text-secondary"><small>ОПИСАНИЕ: {{ object.description }}</small></p>
+                <p class="card-text text-secondary"><small>
+                    Создано {{ product_service.created_at }} Последнее обновление {{ object.updated_at }}
+                </small></p>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+</main>
+<br>
+<br>
+<br>
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-2" style="color: #dbcd9e">
+            <p class="text-center">В ы с о к и й с т и л ь</p>
+        </h1>
+    </div>
+</div>
+
+<script src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
+
+</body>
+
+</html>
+{% endblock %}

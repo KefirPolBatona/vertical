@@ -1,0 +1,83 @@
+{% extends 'catalog/base.html' %}
+
+{% load static %}
+
+{% load my_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="col">
+        <a class="btn btn-outline-secondary" href="{% url 'blog:create' %}">Создать новую статью</a>
+    </div>
+</div>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        {% for object in object_list %}
+
+        <div class="col-md-4">
+
+            <div class="card-body">
+
+                <button type="button" class="btn">
+
+                    <a class="btn" href="{% url 'blog:view' object.pk %}" role="button">
+                        <div class="card text-white">
+                            <img src="{{ object.article_image | media_filter }}" class="img-thumbnail"
+                                 alt="{{ object.article_image }}">
+                            <div class="card-img-overlay">
+                                <h5 class="card-title">{{ object.article_name }}</h5>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="card-body">
+                        <div class="btn-group">
+                            <a href="{% url 'blog:edit' object.pk %}" class="btn btn-secondary"
+                               aria-current="page">Изменить</a>
+                            <a href="{% url 'blog:delete' object.pk %}" class="btn btn-secondary">Удалить</a>
+                            {% if object.is_published %}
+                            <a href="{% url 'blog:toggle_activity' object.pk %}"
+                               class="btn btn-secondary">Опубликовано</a>
+                            {% else %}
+                            <a href="{% url 'blog:toggle_activity' object.pk %}"
+                               class="btn btn-warning">Опубликовать</a>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </button>
+
+
+            </div>
+            <br>
+            <br>
+
+
+        </div>
+
+
+        {% endfor %}
+    </div>
+
+</div>
+
+
+</main>
+
+<br>
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-2" style="color: #dbcd9e">
+            <p class="text-center">В ы с о к и й с т и л ь</p>
+        </h1>
+    </div>
+    <br>
+</div>
+
+<script src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
+
+</body>
+
+</html>
+{% endblock %}
