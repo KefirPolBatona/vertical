@@ -7,7 +7,7 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        {% for object in objects_list %}
+        {% for object in object_list %}
         <div class="col-md-4">
             <button type="button" class="btn">
                 <a class="btn" href="{% url 'catalog:product_detail' object.pk %}" role="button">

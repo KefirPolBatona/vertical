@@ -1,0 +1,46 @@
+{% extends 'catalog/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="card" style="background-color: #a6a190">
+        <div class="card">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <p>Удалить статью {{ object }}?</p>
+                    <button type="submit" class="btn btn-secondary">Подтвердить</button>
+                    <a href="{% url 'blog:list' %}" class="btn btn-secondary">Отмена</a>
+                </form>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+</div>
+
+
+</main>
+
+<br>
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-2" style="color: #dbcd9e">
+            <p class="text-center">В ы с о к и й с т и л ь</p>
+        </h1>
+    </div>
+    <br>
+</div>
+
+<script src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
+
+</body>
+
+</html>
+{% endblock %}
