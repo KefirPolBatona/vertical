@@ -3,7 +3,15 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
+<div class="container-fluid">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" style="color: #ad916c" href="{% url 'blog:list' %}"> << Назад </a>
+        </li>
+    </ul>
+</div>
+
+<div class="container mb-5">
     <div class="card" style="background-color: #a6a190">
         <div class="card-body">
             <form method="post" enctype="multipart/form-data">
@@ -11,9 +19,9 @@
                 {{ form.as_p }}
                 <button type="submit" class="btn btn-secondary">
                     {% if object %}
-                        Сохранить изменения
+                    Сохранить изменения
                     {% else %}
-                        Создать статью
+                    Создать статью
                     {% endif %}
                 </button>
             </form>
@@ -21,11 +29,7 @@
     </div>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+
 </div>
 
 

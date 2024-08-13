@@ -5,29 +5,55 @@
 {% load my_tags %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        {% for object in object_list %}
-        <div class="col-md-4">
-            <button type="button" class="btn">
-                <a class="btn" href="{% url 'catalog:product_detail' object.pk %}" role="button">
-                    <div class="card text-white">
-                        <img src="{{ object.avatar | media_filter }}" class="img-thumbnail" alt="{{ object.avatar }}">
-                        <div class="card-img-overlay">
-                            <h5 class="card-title">{{ object.product_name }}</h5>
-                        </div>
-                        <div class="card-body" style="background-color: #f2ddda">
-                            <p class="card-text" style="color: #ba945d">{{ object.description | truncatechars:100 }}</p>
-                        </div>
-                    </div>
-                </a>
-            </button>
-            <br>
-            <br>
+<div class="row">
+
+    <div class="col-2">
+        <div class="container-fluid">
+
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" style="color: #ad916c" href="{% url 'catalog:create' %}">
+                        Добавить новый абонемент
+                    </a>
+                </li>
+            </ul>
         </div>
-        {% endfor %}
     </div>
 
+
+    <div class="col-8">
+        <div class="container">
+            <div class="row">
+                {% for object in object_list %}
+                <div class="col-md-4">
+                    <button type="button" class="btn">
+                        <a class="btn" href="{% url 'catalog:product_detail' object.pk %}" role="button">
+                            <div class="card text-white">
+                                <img src="{{ object.avatar | media_filter }}" class="img-thumbnail"
+                                     alt="{{ object.avatar }}">
+                                <div class="card-img-overlay">
+                                    <h5>{{ object.product_name }}</h5>
+                                </div>
+                                <div class="card-body" style="background-color: #f2ddda">
+                                    {% for version in object.version_set.all %}
+                                        {% if version.version_active %}
+                                            <p style="color: #ba945d">
+                                                Текущая версия: {{version.version_number}} ({{version.version_name}})
+                                            </p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </a>
+                    </button>
+                    <br>
+                    <br>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
 </div>
 
 

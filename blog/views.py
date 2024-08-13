@@ -1,15 +1,19 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from pytils.translit import slugify
 
+from blog.forms import ArticleForm
 from blog.models import Article
 
 
 class ArticleCreateView(CreateView):
+    """
+    Класс для создания статьи.
+    """
     model = Article
-    fields = ('article_name', 'article_content', 'article_image')
+    form_class = ArticleForm
     success_url = reverse_lazy('blog:list')
 
     def form_valid(self, form):
@@ -17,20 +21,44 @@ class ArticleCreateView(CreateView):
             new_mat = form.save()
             new_mat.slug = slugify(new_mat.article_name)
             new_mat.save()
-
         return super().form_valid(form)
 
 
 class ArticleListView(ListView):
+    """
+    Класс для вывода списка всех статей.
+    """
     model = Article
 
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+        return queryset
+
+
+class ListFilterPub(ArticleListView):
+    """
+    Класс для вывода списка опубликованных статей.
+    """
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
         queryset = queryset.filter(is_published=True)
         return queryset
 
 
+class ListFilterNoPub(ArticleListView):
+    """
+    Класс для вывода списка неопубликованных статей.
+    """
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+        queryset = queryset.filter(is_published=False)
+        return queryset
+
+
 class ArticleDetailView(DetailView):
+    """
+    Класс для вывода статьи с информацией.
+    """
     model = Article
 
     def get_object(self, queryset=None):
@@ -41,8 +69,11 @@ class ArticleDetailView(DetailView):
 
 
 class ArticleUpdateView(UpdateView):
+    """
+    Класс для внесения изменений в статью.
+    """
     model = Article
-    fields = ('article_name', 'article_content', 'article_image')
+    form_class = ArticleForm
 
     def get_success_url(self):
         return reverse('blog:view', args=[self.kwargs.get('pk')])
@@ -52,11 +83,13 @@ class ArticleUpdateView(UpdateView):
             new_mat = form.save()
             new_mat.slug = slugify(new_mat.article_name)
             new_mat.save()
-
         return super().form_valid(form)
 
 
 class ArticleDeleteView(DeleteView):
+    """
+    Класс для удаления статьи.
+    """
     model = Article
     success_url = reverse_lazy('blog:list')
 

@@ -1,25 +1,117 @@
+from django.forms import inlineformset_factory
 from django.shortcuts import render
-from django.views.generic import ListView, TemplateView, DetailView
+from django.urls import reverse_lazy, reverse
+from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView, DeleteView
 
-from catalog.models import Product
+from catalog.forms import ProductForm, VersionForm, VersionFormset
+from catalog.models import Product, Version
+
+
+class ProductCreateView(CreateView):
+    """
+    Класс-контроллер для добавления нового абонемента.
+    """
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:home')
+
+    def get_context_data(self, **kwargs):
+        """
+        Формирует опцию для указания версии абонемента при его добавлении.
+        """
+        context_data = super().get_context_data(**kwargs)
+        VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
+        if self.request.method == 'POST':
+            context_data['formset'] = VersionFormset(self.request.POST)
+        else:
+            context_data['formset'] = VersionFormset()
+        return context_data
+
+    def form_valid(self, form):
+        formset = self.get_context_data()['formset']
+        self.object = form.save()
+        if formset.is_valid():
+            formset.instance = self.object
+            formset.save()
+
+        return super().form_valid(form)
+
+
+class ProductUpdateView(UpdateView):
+    """
+    Класс-контроллер для внесения изменений в абонемент.
+    """
+    model = Product
+    form_class = ProductForm
+
+    def get_success_url(self):
+        """
+        Переходит к странице измененного абонемента.
+        """
+        return reverse('catalog:product_detail', args=[self.kwargs.get('pk')])
+
+    def get_context_data(self, **kwargs):
+        """
+        Формирует опцию для указания новой версии абонемента при внесении изменений в него.
+        """
+        context_data = super().get_context_data(**kwargs)
+        ProductFormset = inlineformset_factory(Product, Version, VersionForm, formset=VersionFormset, extra=1)
+        if self.request.method == 'POST':
+            context_data['formset'] = ProductFormset(self.request.POST, instance=self.object)
+        else:
+            context_data['formset'] = ProductFormset(instance=self.object)
+        return context_data
+
+    def form_valid(self, form):
+        formset = self.get_context_data()['formset']
+        self.object = form.save()
+        if formset.is_valid():
+            formset.instance = self.object
+            formset.save()
+        else:
+            return super().form_invalid(form)
+        return super().form_valid(form)
+
+
+class ProductDeleteView(DeleteView):
+    """
+    Класс-контроллер для удаления абонемента.
+    """
+    model = Product
+    success_url = reverse_lazy('catalog:home')
 
 
 class ProductListView(ListView):
+    """
+    Класс-контроллер для выведения страницы со списком абонементов (главная, home).
+    """
     model = Product
 
 
 class InstructorView(TemplateView):
+    """
+    Класс-контроллер для выведения страницы со списком тренеров (instructor).
+    """
     template_name = 'catalog/instructor.html'
 
 
 class ProductDetailView(DetailView):
+    """
+    Класс-контроллер для выведения страницы абонемента с подробностями.
+    """
     model = Product
 
 
 class ContactView(TemplateView):
+    """
+    Класс-контроллер для выведения страницы с контактами (contact).
+    """
     template_name = 'catalog/contact.html'
 
     def dispatch(self, request, *args, **kwargs):
+        """
+        Создает форму для обратной связи.
+        """
         if request.method == "POST":
             name = request.POST.get("name")
             phone = request.POST.get("phone")

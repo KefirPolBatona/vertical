@@ -53,7 +53,7 @@ class Command(BaseCommand):
                     price_product=product["fields"]["price_product"],
                     created_at=product["fields"]["created_at"],
                     updated_at=product["fields"]["updated_at"],
-               )
+                )
             )
 
         # Создаем объекты в БД с помощью метода bulk_create()

@@ -9,9 +9,9 @@
             <div class="card-body mb-5">
                 <form method="post">
                     {% csrf_token %}
-                    <p>Удалить статью {{ object }}?</p>
-                    <button type="submit" class="btn btn-secondary">Подтвердить</button>
-                    <a href="{% url 'blog:list' %}" class="btn btn-secondary">Отмена</a>
+                    <p>Удалить абонемент {{ object }}?</p>
+                    <button type="submit" class="btn btn-secondary">Удалить</button>
+                    <a href="{% url 'catalog:product_detail' object.pk %}" class="btn btn-secondary">Отмена</a>
                 </form>
             </div>
         </div>
