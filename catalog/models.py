@@ -1,10 +1,15 @@
 from django.db import models
 
+from users.models import User
 
 NULLABLE = {"blank": True, "null": True}
 
 
 class Category(models.Model):
+    """
+    Категории товаров (услуг) - виды спорта, танцевальные направления.
+    """
+
     name_category = models.CharField(max_length=100, verbose_name="категория")
     description = models.TextField(verbose_name="описание", **NULLABLE)
 
@@ -17,6 +22,10 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    """
+    Товары (услуги) - абонементы на посещение занятий.
+    """
+
     product_name = models.CharField(max_length=100, verbose_name="продукт")
     description = models.TextField(verbose_name="описание", **NULLABLE)
     avatar = models.ImageField(
@@ -35,6 +44,13 @@ class Product(models.Model):
         auto_now=True, verbose_name="дата последнего изменения"
     )
 
+    user = models.ForeignKey(
+        User,
+        verbose_name='пользователь',
+        **NULLABLE,
+        on_delete=models.SET_NULL,
+    )
+
     def __str__(self):
         return f"{self.product_name} {self.price_product} {self.category}"
 
@@ -45,6 +61,10 @@ class Product(models.Model):
 
 
 class Version(models.Model):
+    """
+    Версия продукта (товара/услуги) - модернизация абонемента по содержанию занятия.
+    """
+
     version_name = models.CharField(max_length=150, verbose_name="версия продукта", **NULLABLE,)
     version_number = models.FloatField(verbose_name='номер версии')
     product = models.ForeignKey(

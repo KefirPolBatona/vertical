@@ -4,6 +4,10 @@ NULLABLE = {'blank': True, 'null': True}
 
 
 class Article(models.Model):
+    """
+    Статьи для сайта (новости, публикации, объявления).
+    """
+
     article_name = models.CharField(max_length=100, verbose_name="статья")
     article_content = models.TextField(verbose_name="содержание", **NULLABLE)
     article_image = models.ImageField(upload_to="image_article/", verbose_name="превью", **NULLABLE)

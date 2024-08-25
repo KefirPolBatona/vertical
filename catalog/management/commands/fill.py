@@ -9,27 +9,34 @@ class Command(BaseCommand):
 
     @staticmethod
     def json_read_categories():
-        # Здесь мы получаем данные из фикстуры с категориями
+        """
+        Возвращает данные из фикстуры с категориями
+        """
         with open('catalog/fixtures/categories.json', encoding='utf-8') as f:
             data = f.read()
         return json.loads(data)
 
     @staticmethod
     def json_read_products():
-        # Здесь мы получаем данные из фикстуры с продуктами
+        """
+        Возвращает данные из фикстуры с продуктами
+        """
         with open('catalog/fixtures/products.json', encoding='utf-8') as f:
             data = f.read()
         return json.loads(data)
 
     def handle(self, *args, **options):
-
+        """
+        Наполняет БД объектами.
+        Итерация по категориям товаров, наполнение БД категориями.
+        Итерация по товарам, наполнение БД товарами.
+        """
         Category.objects.all().delete()
         Product.objects.all().delete()
 
         product_for_create = []
         category_for_create = []
 
-        # Обходим все значения категорий из фикстуры для получения информации об одном объекте
         for category in Command.json_read_categories():
             category_for_create.append(
                 Category(
@@ -39,10 +46,8 @@ class Command(BaseCommand):
                 )
             )
 
-        # Создаем объекты в БД с помощью метода bulk_create()
         Category.objects.bulk_create(category_for_create)
 
-        # Обходим все значения продуктов из фикстуры для получения информации об одном объекте
         for product in Command.json_read_products():
             product_for_create.append(
                 Product(
@@ -56,5 +61,4 @@ class Command(BaseCommand):
                 )
             )
 
-        # Создаем объекты в БД с помощью метода bulk_create()
         Product.objects.bulk_create(product_for_create)

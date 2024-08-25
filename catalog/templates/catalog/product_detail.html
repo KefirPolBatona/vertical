@@ -17,16 +17,22 @@
                         << Назад
                     </a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" style="color: #ad916c" href="{% url 'catalog:edit' object.pk %}">
-                        Изменить абонемент
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" style="color: #ad916c" href="{% url 'catalog:delete' object.pk %}">
-                        Удалить абонемент
-                    </a>
-                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item active">
+                        {% if perms.catalog.can_cancel_publication and perms.catalog.can_change_description and perms.catalog.can_change_category or user == product.user %}
+                            <a class="nav-link" style="color: #ad916c" href="{% url 'catalog:edit' object.pk %}">
+                                Изменить абонемент
+                            </a>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item active">
+                        {% if user.is_superuser or user == product.user %}
+                            <a class="nav-link" style="color: #ad916c" href="{% url 'catalog:delete' object.pk %}">
+                                Удалить абонемент
+                            </a>
+                        {% endif %}
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>

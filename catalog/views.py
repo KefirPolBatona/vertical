@@ -1,3 +1,5 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
@@ -7,7 +9,7 @@ from catalog.forms import ProductForm, VersionForm, VersionFormset
 from catalog.models import Product, Version
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     """
     Класс-контроллер для добавления нового абонемента.
     """
@@ -28,16 +30,17 @@ class ProductCreateView(CreateView):
         return context_data
 
     def form_valid(self, form):
-        formset = self.get_context_data()['formset']
-        self.object = form.save()
-        if formset.is_valid():
-            formset.instance = self.object
-            formset.save()
+        """
+        Автоматически привязывает пользователя к продукту (абонементу).
+        """
+        product = form.save()
+        product.user = self.request.user
+        product.save()
 
         return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     """
     Класс-контроллер для внесения изменений в абонемент.
     """
@@ -72,13 +75,32 @@ class ProductUpdateView(UpdateView):
             return super().form_invalid(form)
         return super().form_valid(form)
 
+    def get_form_class(self):
+        """
+        Проверяет права доступа пользователя на внесение изменений в продукт (абонемент).
+        """
+        user = self.request.user
+        if user == self.object.user:
+            return ProductForm
+        if user.has_perm("catalog.can_cancel_publication") and user.has_perm(
+                "catalog.can_change_description") and user.has_perm("catalog.can_change_category"):
+            return ProductForm
+        raise PermissionDenied
 
-class ProductDeleteView(DeleteView):
+
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     """
     Класс-контроллер для удаления абонемента.
     """
     model = Product
     success_url = reverse_lazy('catalog:home')
+
+    def test_func(self):
+        """
+        Проверяет права доступа на удаление продукта (абонемента).
+        """
+        product = Product.objects.get(pk=self.kwargs['pk'])
+        return self.request.user.is_superuser or self.request.user.pk == product.user.pk
 
 
 class ProductListView(ListView):
