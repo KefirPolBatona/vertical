@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -103,16 +103,32 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
         return self.request.user.is_superuser or self.request.user.pk == product.user.pk
 
 
-class ProductListView(ListView):
+class ProductModeratorListView(ListView):
     """
-    Класс-контроллер для выведения страницы со списком абонементов (главная, home).
+    Класс-контроллер выведения страницы со списком всех абонементов для группы модераторов (главная, home).
     """
     model = Product
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+        return queryset
+
+
+class ProductListView(ProductModeratorListView):
+    """
+    Класс-контроллер выведения страницы со списком опубликованных абонементов (главная, home).
+    """
+    model = Product
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+        queryset = queryset.filter(is_published=True)
+        return queryset
 
 
 class InstructorView(TemplateView):
     """
-    Класс-контроллер для выведения страницы со списком тренеров (instructor).
+    Класс-контроллер выведения страницы со списком тренеров (instructor).
     """
     template_name = 'catalog/instructor.html'
 
@@ -140,3 +156,15 @@ class ContactView(TemplateView):
             message = request.POST.get("message")
             print(f"You have new message from {name} ({phone}): {message}")
         return render(request, "catalog/contact.html")
+
+
+def toggle_activity(request, pk):
+    product_item = get_object_or_404(Product, pk=pk)
+    if product_item.is_published:
+        product_item.is_published = False
+    else:
+        product_item.is_published = True
+
+    product_item.save()
+
+    return redirect(reverse('catalog:home'))

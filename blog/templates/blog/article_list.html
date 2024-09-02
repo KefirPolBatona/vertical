@@ -10,28 +10,37 @@
     <div class="col-2">
         <div class="container-fluid">
 
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" style="color: #ad916c" href="{% url 'blog:create' %}">
-                        Создать новую статью
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" style="color: #ad916c" href="{% url 'blog:list_filter_published' %}">
-                        Опубликованные статьи
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" style="color: #ad916c" href="{% url 'blog:list_filter_nopublished' %}">
-                        Неопубликованные статьи
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" style="color: #ad916c" href="{% url 'blog:list' %}">
-                        Все статьи
-                    </a>
-                </li>
-            </ul>
+            {% if user.is_authenticated %}
+                <ul class="navbar-nav mr-auto">
+
+                    {% if perms.blog.can_add_article %}
+                        <li class="nav-item active">
+                            <a class="nav-link" style="color: #ad916c" href="{% url 'blog:create' %}">
+                                Создать новую статью
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    <li class="nav-item active">
+                        <a class="nav-link" style="color: #ad916c" href="{% url 'blog:list_filter_published' %}">
+                            Опубликованные статьи
+                        </a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" style="color: #ad916c" href="{% url 'blog:list_filter_nopublished' %}">
+                            Неопубликованные статьи
+                        </a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" style="color: #ad916c" href="{% url 'blog:list' %}">
+                            Все статьи
+                        </a>
+                    </li>
+
+                </ul>
+            {% endif %}
 
         </div>
     </div>
@@ -56,16 +65,21 @@
                             </a>
                             <div class="card-body">
                                 <div class="btn-group">
-                                    <a href="{% url 'blog:edit' object.pk %}" class="btn btn-secondary"
-                                       aria-current="page">Изменить</a>
-                                    <a href="{% url 'blog:delete' object.pk %}" class="btn btn-secondary">Удалить</a>
-                                    {% if object.is_published %}
-                                    <a href="{% url 'blog:toggle_activity' object.pk %}"
-                                       class="btn btn-secondary">Опубликовано</a>
-                                    {% else %}
-                                    <a href="{% url 'blog:toggle_activity' object.pk %}"
-                                       class="btn btn-warning">Опубликовать</a>
+
+                                    {% if perms.blog.can_add_article %}
+                                        <a href="{% url 'blog:edit' object.pk %}" class="btn btn-secondary"
+                                           aria-current="page">Изменить</a>
+                                        <a href="{% url 'blog:delete' object.pk %}" class="btn btn-secondary">Удалить</a>
+
+                                        {% if object.is_published %}
+                                            <a href="{% url 'blog:toggle_activity' object.pk %}"
+                                               class="btn btn-secondary">Опубликовано</a>
+                                        {% else %}
+                                            <a href="{% url 'blog:toggle_activity' object.pk %}"
+                                               class="btn btn-warning">Опубликовать</a>
+                                        {% endif %}
                                     {% endif %}
+
                                 </div>
                             </div>
                         </button>

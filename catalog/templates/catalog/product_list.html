@@ -16,7 +16,13 @@
                         <a class="nav-link" style="color: #ad916c" href="{% url 'catalog:create' %}">
                             Добавить новый абонемент
                         </a>
-                    {% endif %}
+                        <a class="nav-link" style="color: #ad916c" href="{% url 'catalog:home' %}">
+                            Опубликованные абонементы
+                        </a>
+                        <a class="nav-link" style="color: #ad916c" href="{% url 'catalog:product_list_moderator' %}">
+                            Все абонементы
+                        </a>
+                        {% endif %}
                 </li>
             </ul>
         </div>

@@ -1,0 +1,90 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$Af04YwxnFKPeiI4fytyEAz$JdTDUm4fkFiaNVFfhsos90XGeQZp1q80i3tgWX9q4ao=",
+      "last_login": "2024-09-02T12:36:59.853Z",
+      "is_superuser": true,
+      "first_name": "Admin",
+      "last_name": "Adminka",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-08-24T07:39:22Z",
+      "email": "9232485@gmail.com",
+      "phone": null,
+      "country": null,
+      "avatar": "",
+      "token": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$PuylADhX0Nqk25SYoHZS75$BYlE8NquyaPwlzfprA4w09PtCXKbdgJk3UgiWmgrLoU=",
+      "last_login": "2024-09-02T07:07:24.388Z",
+      "is_superuser": false,
+      "first_name": "Евгений",
+      "last_name": "С",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-08-24T08:47:04Z",
+      "email": "test@yandex.ru",
+      "phone": "897319864985985",
+      "country": "Россия",
+      "avatar": "image_users/logo.jpg",
+      "token": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$YHOfvv1f6CSnkMQos1BaM6$/2m1PR3Prmh07KkHXj+isTGR6fIOluiNm8CWgu5nCTY=",
+      "last_login": "2024-09-02T12:44:43.352Z",
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-08-25T17:17:48Z",
+      "email": "9232485@mail.ru",
+      "phone": null,
+      "country": null,
+      "avatar": "",
+      "token": "df23dc25d1c24b5ad0d52fceb22b930a",
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$Yy93fKlXe2F1rfAvm20lsq$QCSSUFBMYAAMeNwq7zV5dJBjLYcv7cBtxl82BD9FSBI=",
+      "last_login": "2024-09-02T12:39:06.223Z",
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-09-02T07:15:59Z",
+      "email": "rgd22@yandex.ru",
+      "phone": null,
+      "country": null,
+      "avatar": "",
+      "token": "0ebb70706cc12c6095a184538935afc7",
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  }
+]
