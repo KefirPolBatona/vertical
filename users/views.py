@@ -13,6 +13,7 @@ from users.models import User
 
 from config.settings import EMAIL_HOST_USER
 
+
 class RegisterView(CreateView):
     """
     Класс-контроллер для регистрации пользователя.

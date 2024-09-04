@@ -12,6 +12,7 @@ class Category(models.Model):
 
     name_category = models.CharField(max_length=100, verbose_name="категория")
     description = models.TextField(verbose_name="описание", **NULLABLE)
+    сategory_image = models.ImageField(upload_to="image_сategory/", verbose_name="изображение категории", **NULLABLE)
 
     def __str__(self):
         return f"{self.name_category}"

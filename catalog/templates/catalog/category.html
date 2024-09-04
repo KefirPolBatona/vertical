@@ -1,0 +1,63 @@
+{% extends 'catalog/base.html' %}
+
+{% load static %}
+
+{% load my_tags %}
+
+{% block content %}
+<div class="row">
+    <div class="col-2">
+        <div class="card-body" style="background-color: #f2ddda color: #f2ddda">
+            <h5 class="card-title text-secondary">Наши направления</h5>
+        </div>
+    </div>
+
+    <div class="col-8">
+        <div class="container">
+            <div class="row">
+
+                {% for category in categories %}
+                    <div class="col-md-4">
+                        <button type="button" class="btn">
+                            <a class="btn" href="{% url 'catalog:category_detail' category.pk %}" role="button">
+                                <div class="card text-white">
+                                    <img src="{{ category.сategory_image | media_filter }}" class="img-thumbnail"
+                                         alt="{{ category.сategory_image }}">
+                                    <div class="card-img-overlay">
+                                        <h5>{{ category.name_category }}</h5>
+                                    </div>
+                                    <div class="card-body" style="background-color: #f2ddda">
+                                    </div>
+                                </div>
+                            </a>
+                        </button>
+                        <br>
+                        <br>
+                    </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+</main>
+
+<br>
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-2" style="color: #dbcd9e">
+            <p class="text-center">В ы с о к и й с т и л ь</p>
+        </h1>
+    </div>
+    <br>
+</div>
+
+<script src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
+
+</body>
+
+</html>
+{% endblock %}

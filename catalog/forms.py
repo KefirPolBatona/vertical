@@ -2,7 +2,7 @@ from django import forms
 from django.forms import BaseInlineFormSet, BooleanField
 
 from catalog.models import Product, Version
-from catalog.open_json_file import open_json_file
+from catalog.services import valid_words
 
 
 class StyleFormMixin:
@@ -63,15 +63,3 @@ class VersionFormset(BaseInlineFormSet):
                 count += 1
                 if count > 1:
                     raise forms.ValidationError("Недопустимое количество активных версий")
-
-
-def valid_words(cleaned):
-    """
-    Применяется для class ProductForm(forms.ModelForm).
-    Сверяет введенные пользователем слова в полях формы ('product_name', 'description')
-    со списком запрещенных слов из json-файла.
-    """
-    list_data = open_json_file()
-    if any(item in cleaned for item in list_data):
-        raise forms.ValidationError('Недопустимая лексика')
-    return cleaned

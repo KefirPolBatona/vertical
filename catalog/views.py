@@ -6,7 +6,8 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView, DeleteView
 
 from catalog.forms import ProductForm, VersionForm, VersionFormset
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
+from catalog.services import get_cached_categories
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
@@ -101,6 +102,31 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
         """
         product = Product.objects.get(pk=self.kwargs['pk'])
         return self.request.user.is_superuser or self.request.user.pk == product.user.pk
+
+
+class CategoryListView(ListView):
+    """
+    Класс-контроллер выведения страницы со списком категорий.
+    """
+    model = Category
+    template_name = 'catalog/category.html'
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['categories'] = get_cached_categories()
+        return context_data
+
+
+class CategoryDetailView(DetailView):
+    """
+    Класс-контроллер для выведения страницы категории с подробностями.
+    """
+    model = Category
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data()
+        context_data['products'] = Product.objects.filter(category=self.object.id)
+        return context_data
 
 
 class ProductModeratorListView(ListView):

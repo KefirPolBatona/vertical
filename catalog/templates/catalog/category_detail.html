@@ -1,0 +1,69 @@
+{% extends 'catalog/base.html' %}
+
+{% load static %}
+
+{% load my_tags %}
+
+{% block content %}
+
+<div class="row mb-5">
+    <div class="col-2">
+        <div class="container-fluid">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" style="color: #ad916c" href="{% url 'catalog:category' %}">
+                        << Назад
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-8 mb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="{{ object.сategory_image | media_filter}}" class="img-thumbnail"
+                         alt="{{ object.сategory_image }}">
+                </div>
+                <div class="col-md-6">
+                    <h5 class="card-title text-secondary">Категория: {{ category.name_category }}</h5>
+                    <br>
+                    <h6 class="card-title text-secondary">Абонементы категории:</h6>
+                    <a>
+                        {% if products %}
+                            {% for product in products %}
+                                 <li>
+                                    {{ product.product_name }}
+                                 </li>
+                            {% endfor %}
+                        {% endif %}
+                    </a>
+                    <br>
+                    <p class="card-text text-secondary"><small>Описание: {{ object.description }}</small></p>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</main>
+<br>
+<br>
+<br>
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-2" style="color: #dbcd9e">
+            <p class="text-center">В ы с о к и й с т и л ь</p>
+        </h1>
+    </div>
+</div>
+
+<script src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
+
+</body>
+
+</html>
+{% endblock %}
